@@ -1,10 +1,25 @@
 import ModalBootstrap from "../UI/ModalBootstrap";
 import classes from "./Cart.module.css";
+import CartContext from "../../store/CartContext";
+import { useContext } from "react";
+import CartItem from "./CartItem";
 const Cart = (props) => {
+  const cartctx = useContext(CartContext);
+  const hasitems = cartctx.items.length > 0;
+  const cartItemAddHandler = (item) => {};
+  const cartItemRemoveHandler = (id) => {};
+
   const cartItems = (
     <ul className={classes["cart-items"]}>
-      {[{ id: "c1", name: "Sushi", amount: 2, price: 12.99 }].map((item) => (
-        <li key={item.id}>{item.name}</li>
+      {cartctx.items.map((item) => (
+        <CartItem
+          key={item.id}
+          name={item.name}
+          amount={item.amount}
+          price={item.price}
+          onRemove={cartItemRemoveHandler}
+          onAdd={cartItemAddHandler}
+        ></CartItem>
       ))}
     </ul>
   );
@@ -15,10 +30,11 @@ const Cart = (props) => {
       title="Cart Items"
       content={cartItems}
       handleClose={props.onHideCart}
+      hasitems={hasitems}
     >
       <div className={classes.total}>
         <span>Total Amount</span>
-        <span>35.62</span>
+        <span>{cartctx.totalamount.toFixed(2)}</span>
       </div>
     </ModalBootstrap>
   );

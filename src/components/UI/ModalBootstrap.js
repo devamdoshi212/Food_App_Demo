@@ -15,9 +15,11 @@ const ModalBootstrap = (props) => {
           <Button variant="secondary" onClick={props.handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={props.handleClose}>
-            Save Changes
-          </Button>
+          {props.hasitems && (
+            <Button variant="success" onClick={props.handleClose}>
+              Order
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </Fragment>
