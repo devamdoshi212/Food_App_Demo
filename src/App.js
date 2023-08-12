@@ -1,8 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import Header from "./components/Layouts/Header";
 import Meals from "./components/Meals/Meals";
 import Cart from "./components/Cart/Cart";
+import CartContextProvider from "./store/CartContextProvider";
 
 function App() {
   const [show, setshow] = useState(false);
@@ -14,7 +15,7 @@ function App() {
   };
 
   return (
-    <Fragment>
+    <CartContextProvider>
       {show && <Cart modal={show} onHideCart={hidecarthandler}></Cart>}
       <div className="bg-dark container-fluid mx-auto">
         <Header onShowCart={showcarthandler}></Header>
@@ -22,7 +23,7 @@ function App() {
           <Meals></Meals>
         </main>
       </div>
-    </Fragment>
+    </CartContextProvider>
   );
 }
 
