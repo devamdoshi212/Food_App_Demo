@@ -10,7 +10,12 @@ const Cart = (props) => {
   );
 
   return (
-    <Modal title="Cart Items" content={cartItems} hide={props.onHideCart}>
+    <Modal
+      modal={props.modal}
+      title="Cart Items"
+      content={cartItems}
+      hide={props.onHideCart}
+    >
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>35.62</span>

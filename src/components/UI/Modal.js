@@ -6,6 +6,7 @@ const Modal = (props) => {
     <Fragment>
       {ReactDOM.createPortal(
         <ModalBootstrap
+          show={props.modal}
           title={props.title}
           content={props.content}
           handleClose={props.hide}

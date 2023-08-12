@@ -15,7 +15,7 @@ function App() {
 
   return (
     <Fragment>
-      {show && <Cart onHideCart={hidecarthandler}></Cart>}
+      {show && <Cart modal={show} onHideCart={hidecarthandler}></Cart>}
       <div className="bg-dark container-fluid mx-auto">
         <Header onShowCart={showcarthandler}></Header>
         <main>
