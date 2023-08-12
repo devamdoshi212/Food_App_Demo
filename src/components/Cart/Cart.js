@@ -1,4 +1,4 @@
-import Modal from "../UI/Modal";
+import ModalBootstrap from "../UI/ModalBootstrap";
 import classes from "./Cart.module.css";
 const Cart = (props) => {
   const cartItems = (
@@ -10,17 +10,17 @@ const Cart = (props) => {
   );
 
   return (
-    <Modal
-      modal={props.modal}
+    <ModalBootstrap
+      show={props.modal}
       title="Cart Items"
       content={cartItems}
-      hide={props.onHideCart}
+      handleClose={props.onHideCart}
     >
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>35.62</span>
       </div>
-    </Modal>
+    </ModalBootstrap>
   );
 };
 
