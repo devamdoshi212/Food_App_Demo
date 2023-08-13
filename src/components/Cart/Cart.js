@@ -6,8 +6,15 @@ import CartItem from "./CartItem";
 const Cart = (props) => {
   const cartctx = useContext(CartContext);
   const hasitems = cartctx.items.length > 0;
-  const cartItemAddHandler = (item) => {};
-  const cartItemRemoveHandler = (id) => {};
+  const tamount = `${cartctx.totalamount.toFixed(2)}`;
+  // console.log(tamount);
+  const cartItemAddHandler = (item) => {
+    cartctx.AddItem({ ...item, amount: 1 });
+  };
+  const cartItemRemoveHandler = (id) => {
+    // console.log(id);
+    cartctx.RemoveItem(id);
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -17,8 +24,8 @@ const Cart = (props) => {
           name={item.name}
           amount={item.amount}
           price={item.price}
-          onRemove={cartItemRemoveHandler}
-          onAdd={cartItemAddHandler}
+          onRemove={cartItemRemoveHandler.bind(null, item.id)}
+          onAdd={cartItemAddHandler.bind(null, item)}
         ></CartItem>
       ))}
     </ul>
@@ -34,7 +41,7 @@ const Cart = (props) => {
     >
       <div className={classes.total}>
         <span>Total Amount</span>
-        <span>{cartctx.totalamount.toFixed(2)}</span>
+        <span>{tamount}</span>
       </div>
     </ModalBootstrap>
   );

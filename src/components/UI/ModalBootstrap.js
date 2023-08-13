@@ -9,7 +9,8 @@ const ModalBootstrap = (props) => {
         </Modal.Header>
         <Modal.Body>
           {props.content}
-          {props.children}
+          {!props.hasitems && <h3>Your Cart is Empty.</h3>}
+          {props.hasitems && props.children}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>
