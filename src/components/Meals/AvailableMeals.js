@@ -1,35 +1,39 @@
+import { useEffect, useState } from "react";
+import PropagateLoader from "react-spinners/PropagateLoader";
 import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Gathiya",
-    description: "with Tea and Chutney",
-    price: 500,
-  },
-  {
-    id: "m2",
-    name: "Thepla",
-    description: "with Pickles and Tea",
-    price: 100,
-  },
-  {
-    id: "m3",
-    name: "Khaman",
-    description: "with sev and mirchi",
-    price: 200,
-  },
-  {
-    id: "m4",
-    name: "Kachori",
-    description: "with red chutney and green chutney",
-    price: 100,
-  },
-];
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const [meals, setmeals] = useState([]);
+  const [loading, setloading] = useState(true);
+  const [httperror, sethttperror] = useState(null);
+  useEffect(() => {
+    const fetchmeals = async () => {
+      // setloading(true);
+      const Response = await fetch(
+        "https://food-app-92ca5-default-rtdb.firebaseio.com/meals.json"
+      );
+      if (!Response.ok) {
+        throw new Error("Something went Wrong");
+      }
+      const data = await Response.json();
+      let mealsarray = [];
+      for (const key in data) {
+        mealsarray.push({
+          id: key,
+          name: data[key].name,
+          description: data[key].description,
+          price: data[key].price,
+        });
+      }
+      setloading(false);
+      setmeals(mealsarray);
+      // console.log(mealsarray);
+    };
+    fetchmeals();
+  }, []);
+  const mealsList = meals.map((meal) => (
     <MealItem
       key={meal.id}
       id={meal.id}
@@ -42,7 +46,12 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        {!loading && <ul>{mealsList}</ul>}
+        {loading && (
+          <div className="d-flex justify-content-center">
+            <PropagateLoader color="#36d7b7" />
+          </div>
+        )}
       </Card>
     </section>
   );
