@@ -31,7 +31,10 @@ const AvailableMeals = () => {
       setmeals(mealsarray);
       // console.log(mealsarray);
     };
-    fetchmeals();
+    fetchmeals().catch((error) => {
+      setloading(false);
+      sethttperror(error.message);
+    });
   }, []);
   const mealsList = meals.map((meal) => (
     <MealItem
@@ -46,7 +49,10 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        {!loading && <ul>{mealsList}</ul>}
+        {!loading && !httperror && <ul>{mealsList}</ul>}
+        {!loading && (
+          <div className="d-flex justify-content-center">{httperror}</div>
+        )}
         {loading && (
           <div className="d-flex justify-content-center">
             <PropagateLoader color="#36d7b7" />
