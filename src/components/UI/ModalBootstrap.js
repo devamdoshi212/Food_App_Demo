@@ -1,6 +1,18 @@
 import { Fragment } from "react";
 import { Modal, Button } from "react-bootstrap";
 const ModalBootstrap = (props) => {
+  const ModalFooter = (
+    <Modal.Footer>
+      <Button variant="secondary" onClick={props.handleClose}>
+        Close
+      </Button>
+      {props.hasitems && (
+        <Button variant="success" onClick={props.orderHandler}>
+          Order
+        </Button>
+      )}
+    </Modal.Footer>
+  );
   return (
     <Fragment>
       <Modal show={props.show} onHide={props.handleClose}>
@@ -12,16 +24,7 @@ const ModalBootstrap = (props) => {
           {!props.hasitems && <h3>Your Cart is Empty.</h3>}
           {props.hasitems && props.children}
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
-            Close
-          </Button>
-          {props.hasitems && (
-            <Button variant="success" onClick={props.handleClose}>
-              Order
-            </Button>
-          )}
-        </Modal.Footer>
+        {!props.isCheckingOut && ModalFooter}
       </Modal>
     </Fragment>
   );
