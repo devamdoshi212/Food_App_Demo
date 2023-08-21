@@ -20,8 +20,8 @@ const ModalBootstrap = (props) => {
           <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {props.content}
           {!props.hasitems && <h3>Your Cart is Empty.</h3>}
+          {props.content}
           {props.hasitems && props.children}
         </Modal.Body>
         {!props.isCheckingOut && ModalFooter}
